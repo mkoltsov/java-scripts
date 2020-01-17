@@ -1,4 +1,4 @@
-#!/usr/bin/java --source 11 --classpath
+#!/usr/bin/java --class-path /Users/mkoltsov/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar  --source 11
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,6 +6,10 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Script {
 
@@ -17,10 +21,11 @@ public class Script {
 
         HttpResponse<String> response = HttpClient
                 .newBuilder()
-//                .proxy(ProxySelector.getDefault())
                 .build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
+        Gson gson = new Gson();
+        Map<String, Object> map = gson.fromJson(response.body(), new TypeToken<Map<String, Object>>() {
+        }.getType());
+        System.out.println(map.get("url"));
     }
 }
