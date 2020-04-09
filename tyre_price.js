@@ -2,9 +2,7 @@ const chromeLauncher = require('chrome-launcher');
 const CDP = require('chrome-remote-interface');
 const util = require('util');
 const setTimeoutPromise = util.promisify(setTimeout);
-const TOKEN = process.env.TELEGRAM_TOKEN || '1153590222:AAEj_D-qcD0NeCreCOIjhh6OoVeusUD0zvI';
-// const TelegramBot = require('node-telegram-bot-api');
-// const bot = new TelegramBot(TOKEN, {polling: true});
+const TOKEN = process.env.TELEGRAM_TOKEN;
 const Tgfancy = require("tgfancy");
 const bot = new Tgfancy(TOKEN, 
 // {
@@ -15,9 +13,9 @@ const bot = new Tgfancy(TOKEN,
     // },
 // }
 );
-const name = "'Zeetex HP2000 VFM 215/55 R17 98 W XL'";
-const js = `$("div a[title=${name}]").parent().parent().parent().parent().find('.details.right > .shopping > .buy > .price > span.price.size-3').text()`;
-const url = 'https://www.oponeo.pl/wybierz-opony/s=1/letnie/r=1/215-55-r17';
+const name = process.env.position || "'Zeetex HP2000 VFM 215/55 R17 98 W XL'" ;
+const js = process.env.selector || `$("div a[title=${name}]").parent().parent().parent().parent().find('.details.right > .shopping > .buy > .price > span.price.size-3').text()`;
+const url = process.env.url || 'https://www.oponeo.pl/wybierz-opony/s=1/letnie/r=1/215-55-r17';
 
 // bot.setWebHook(`${url}/bot${TOKEN}`);
 
